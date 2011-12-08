@@ -1,0 +1,54 @@
+<link rel="stylesheet" href="basic.css" type="text/css" ></link>
+
+<html>
+    <head>
+        <title>Simple chat o' rama</title>
+    </head>
+    <body>
+        <div class="borderBlue" >
+            <p>
+                <label for="messageText">Message</label>
+                <input type="text" id="messageText"/>
+            </p>
+            <p>
+                <button id="sendButton">Send</button>
+            </p>
+        </div>
+        <div class="borderRed">
+            <ul id="messages">
+            </ul>
+        </div>
+        <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.5.2.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                var webSocket = io.connect('localhost', { port: 2000 });
+              //  webSocket.connect();
+
+                webSocket.on('connect', function() {
+                console.log("hello am");
+                    $('#messages').append('<li>Connected to the server.</li>');
+                });
+
+
+                webSocket.on('message', function(message) {
+                console.log(message);
+                    $('#messages').append('<li>' + message + '</li>');
+                }); 
+
+                webSocket.on('disconnect', function() {
+                    $('#messages').append('<li>Disconnected from the server.</li>');
+                });
+
+                $('#sendButton').bind('click', function() {
+                    var message = $('#messageText').val();
+                    webSocket.emit('message',message);
+                    console.log('message emitted');
+                    $('#messageText').val('');
+                    
+                });
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Dynamic Drive: CSS Liquid Layout #3.3- (Fluid-Fluid-Fluid)</title>
+
+<link rel="stylesheet" href="basic.css" type="text/css" ></link>
+
+</head>
+<body>
+<div id="maincontainer">
+
+<div id="topsection"><div class="innertube" align="center"><em>As you think, so you are. As you dream, so you become. As you create your wishes, so they create you.</em></div></div>
+<div id="contentPanel">
+<div id="contentwrapper">
+<div id="contentcolumn">
+	<div id="feeds" class="innertube, borderBlue" ><b><em>Beyond you</em></b> </div>
+</div>
+</div>
+
+<div id="leftcolumn">
+<div class="innertube"><b> <em></em></b> 
+<div id="profile" class="borderBlue"><h3>My Profile</h3>
+
+<p>
+                <label for="messageText">Message</label>
+                <input type="text" id="messageText"/>
+            </p>
+            <p>
+                <button id="sendButton">Send</button>
+            </p>
+</div>
+<div id="wishes" class="borderBlue"><h3>My Wishes</h3>
+ <p>
+                <button id="addAWish">Add a Wish</button>
+                <input type="text" id="wishText"/>
+            </p>
+
+<ul id="wishes"></ul>
+</div>
+</div>
+
+</div>
+
+<div id="rightcolumn">
+<div class="innertube"><b> <em></em></b> 
+<div id="friends" class="borderBlue">Friends</div>
+<div id="fulfilled" class="borderBlue"><h3>Fulfilled wishes</h3>
+<ul id="messages">
+            </ul>
+
+</div>
+</div>
+</div>
+
+</div>
+<div id="footer"></div>
+
+</div>
+
+
+<script type="text/javascript" src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.5.2.js"></script>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                var webSocket = io.connect('localhost', { port: 2000 });
+              //  webSocket.connect();
+
+                webSocket.on('connect', function() {
+                console.log("hello am");
+                    $('#messages').append('<li>Connected to the server.</li>');
+                });
+
+
+                webSocket.on('custom', function(message) {
+                console.log(message);
+                    $('#messages').append('<li>' + message + '</li>');
+                }); 
+                
+                webSocket.on('myWish', function(message) {
+                console.log(message);
+                    $('#wishes').append('<li>' + message + '</li>');
+                }); 
+
+                webSocket.on('disconnect', function() {
+                    $('#messages').append('<li>Disconnected from the server.</li>');
+                });
+                
+                var jsonMessage = {
+							  action: 'attack',
+  							position: [56.241, -8.141],
+  							status: 'missed'
+					};
+
+                $('#sendButton').bind('click', function() {
+                    var message = $('#messageText').val();
+                    webSocket.emit('custom', JSON.stringify(jsonMessage));
+                    console.log('message emitted');
+                    $('#messageText').val('');
+                    
+                });
+                
+                $('#addAWish').bind('click', function() {
+                    var message = $('#wishText').val();
+                    webSocket.emit('myWish', message);
+                    console.log('my wish emitted');
+                    $('#wishText').val('');
+                    
+                });
+            });
+        </script>
+
+
+
+</body>
+</html>

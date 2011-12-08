@@ -1,0 +1,85 @@
+.borderRed{
+border-width: 20px;
+-moz-border-image: url(image2.png) 20 stretch; /*Mozilla version*/
+-webkit-border-image: url(image2.png) 20 stretch; /*Webkit version*/
+-o-border-image: url(image2.png) 20 stretch; /*Opera version*/
+-ms-border-image: url(image2.png) 20 stretch; /*IE syntax when it does support this prop*/
+border-image: url(image2.png) 20 stretch; /*Standard version*/
+background-color: white;
+}
+
+h1 {
+	color: black;
+}
+
+.borderBlue{
+border-width: 10px;
+-moz-border-image: url(image1.gif) 20 30 stretch; /*Mozilla version*/
+-webkit-border-image: url(image1.gif) 20 stretch; /*Webkit version*/
+-o-border-image: url(image1.gif) 20 stretch; /*Opera version*/
+-ms-border-image: url(image1.gif) 20 stretch; /*IE syntax when it does support this prop*/
+border-image: url(image1.gif) 20 30 stretch; /*Standard version*/
+}
+
+body{
+margin:0;
+padding:0;
+background-color: white;
+line-height: 1.5em;
+}
+
+b{font-size: 110%;}
+em{color: black;}
+
+
+
+#topsection{
+background: white;
+height: 90px; /*Height of top section*/
+}
+
+#topsection h1{
+margin: 0;
+padding-top: 15px;
+}
+
+#contentwrapper{
+float: left;
+width: 100%;
+}
+
+#contentcolumn{
+margin: 0 15% 0 20%; /*Margins for content column. Should be "0 RightColumnWidth 0 LeftColumnWidth*/
+}
+
+#leftcolumn{
+float: left;
+width: 20%; /*Width of left column in percentage*/
+margin-left: -100%;
+background: white;
+}
+
+#rightcolumn{
+float: left;
+width: 15%; /*Width of right column in pixels*/
+margin-left: -15%; /*Set margin to that of -(RightColumnWidth)*/
+background: white;
+}
+
+#footer{
+clear: left;
+width: 100%;
+background: white;
+color: #FFF;
+text-align: center;
+padding: 4px 0;
+}
+
+#footer a{
+color: black;
+}
+
+.innertube{
+margin: 10px; /*Margins for inner DIV inside each column (to provide padding)*/
+margin-top: 0;
+}
